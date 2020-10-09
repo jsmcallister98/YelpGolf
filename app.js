@@ -1,8 +1,11 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const express = require("express"),
+      app = express(),
+      bodyParser = require("body-parser"),
+      mongoose = require("mongoose"),
+      Campground = require("./models/campground"),
+      seedDB = require("./seeds");
 
+seedDB();
 mongoose.connect("mongodb://localhost:27017/yelp_golf", {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -12,36 +15,13 @@ mongoose.connect("mongodb://localhost:27017/yelp_golf", {
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-// Schema setup
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-const campground = mongoose.model("Campground", campgroundSchema);
-
-// campground.create(    
-//     {
-//         name: "Pebble Beach", 
-//         image: "https://www.pebblebeach.com/content/uploads/20160811-cam-timeout.jpg",
-//         description: "The greatest public golf course on earth"
-//     },function(err, campground){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("New Course: ");
-//             console.log(campground);
-//         }
-//     });
-
 app.get("/", function(req, res){
     res.render("landing");
 });
 
 app.get("/campgrounds", function(req, res){
     // get all courses from db
-    campground.find({}, function(err, campgrounds){
+    Campground.find({}, function(err, campgrounds){
         if(err){
             console.log(err);
         } else {
@@ -56,7 +36,7 @@ app.post("/campgrounds", function(req, res){
     const desc = req.body.description;
     const newCampground = {name: name, image: image, description: desc}
     // create a new course and save to DB
-    campground.create(newCampground, function(err, newlyCreated){
+    Campground.create(newCampground, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
@@ -71,10 +51,11 @@ app.get("/campgrounds/new", function(req, res){
 
 app.get("/campgrounds/:id", function(req, res){
     // find course with provided id
-    campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         } else {
+            console.log(foundCampground)
             // render show templte with that course
             res.render("show", {campground: foundCampground});
         }
