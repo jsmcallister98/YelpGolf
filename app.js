@@ -13,7 +13,7 @@ const commentRoutes = require("./routes/comments"),
       campgroundRoutes = require("./routes/campgrounds"),
       indexRoutes = require("./routes/index");
 
-seedDB();
+// seedDB();
 mongoose.connect("mongodb://localhost:27017/yelp_golf", {
     useNewUrlParser: true,
     useUnifiedTopology: true

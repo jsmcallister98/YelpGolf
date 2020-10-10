@@ -15,7 +15,7 @@ router.get("/", function(req, res){
 });
 
 // create route
-router.post("/", function(req, res){
+router.post("/", isLoggedIn, function(req, res){
     const name = req.body.name;
     const image = req.body.image;
     const desc = req.body.description;
@@ -31,7 +31,7 @@ router.post("/", function(req, res){
 });
 
 // new route
-router.get("/new", function(req, res){ 
+router.get("/new", isLoggedIn, function(req, res){ 
     res.render("campgrounds/new");
 });
 
@@ -47,5 +47,13 @@ router.get("/:id", function(req, res){
         }
     });
 });
+
+// middleware
+function isLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;
