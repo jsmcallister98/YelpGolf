@@ -16,10 +16,14 @@ router.get("/", function(req, res){
 
 // create route
 router.post("/", isLoggedIn, function(req, res){
-    const name = req.body.name;
-    const image = req.body.image;
-    const desc = req.body.description;
-    const newCampground = {name: name, image: image, description: desc}
+    let name = req.body.name;
+    let image = req.body.image;
+    let desc = req.body.description;
+    let author = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    let newCampground = {name: name, image: image, description: desc, author: author}
     // create a new course and save to DB
     Campground.create(newCampground, function(err, newlyCreated){
         if(err){
