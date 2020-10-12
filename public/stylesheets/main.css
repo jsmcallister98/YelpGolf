@@ -9,3 +9,12 @@
 .thumbnail .caption-full {
     padding: 9px;
 } 
+
+.delete-form {
+    display: inline;
+}
+
+.editdelete {
+    display: flex;
+    justify-content: space-between;
+}

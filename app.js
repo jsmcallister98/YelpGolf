@@ -4,6 +4,7 @@ const express = require("express"),
       mongoose = require("mongoose"),
       passport = require("passport"),
       LocalStrategy = require("passport-local"),
+      methodOverride = require("method-override"),
       Campground = require("./models/campground"),
       Comment = require("./models/comment"),
       User = require("./models/user"),
@@ -16,13 +17,15 @@ const commentRoutes = require("./routes/comments"),
 // seedDB();
 mongoose.connect("mongodb://localhost:27017/yelp_golf", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => console.log('Connected to DB!'))
   .catch(error => console.log(error.message));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 // passport config
 app.use(require("express-session")({
