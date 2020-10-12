@@ -1,0 +1,82 @@
+body {
+    background-color: #000;
+}
+
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+  }
+
+  #landing-header h1 {
+    color: #fff;
+  }
+
+  .slideshow { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .slideshow li { 
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 50s linear infinite; 
+  }
+
+  .slideshow li:nth-child(1) { 
+    background-image: url(https://www.pebblebeach.com/content/uploads/20160811-cam-timeout.jpg) 
+  }
+  .slideshow li:nth-child(2) { 
+    background-image: url(https://i.pinimg.com/originals/2b/08/fa/2b08fabcfad7cbc7373d5e3e5d168ef8.jpg);
+    animation-delay: 10s; 
+  }
+  .slideshow li:nth-child(3) { 
+    background-image: url(https://www.visithalfmoonbay.org/sites/default/files/inline-images/Old%20Course_Ritz_photo1.jpg);
+    animation-delay: 20s; 
+  }
+  .slideshow li:nth-child(4) { 
+    background-image: url(https://golfdigest.sports.sndimg.com/content/dam/images/golfdigest/fullset/2016/12/14/5851dad11657891e1ffd5c09_2017-49-Spyglass-Hill-GC-hole-3.jpg.rend.hgtvcom.966.725.suffix/1573414361047.jpeg);
+    animation-delay: 30s; 
+  }
+  .slideshow li:nth-child(5) { 
+    background-image: url(https://villagrouploreto.s3.amazonaws.com/uploads/article/cover_en/178/tpc-danzante-bay-better-than-cabo-golf-courses.jpg);
+    animation-delay: 40s; 
+  }
+
+  @keyframes imageAnimation { 
+    0% { 
+      opacity: 0; 
+      animation-timing-function: ease-in;
+    }
+    10% {
+      opacity: 1;
+      animation-timing-function: ease-out;
+    }
+    20% {
+      opacity: 1
+    }
+    30% {
+      opacity: 0
+    }
+  } 
+
+  /* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
